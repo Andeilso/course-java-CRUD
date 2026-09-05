@@ -1,20 +1,28 @@
 package com.project.course.resources;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.course.entities.User;
+import com.project.course.services.UserService;
 
 @RestController
 @RequestMapping (value="/users")
 public class UserResource {
-    
-    @GetMapping 
-    public ResponseEntity<User> findAll(){
-        User u = new User(1L, "Maria", "maria@gamil.com", "999999999", "12345");
+    private UserService userService;    
 
-        return ResponseEntity.ok().body(u);
+    public UserResource(UserService userService){
+        this.userService = userService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<User>> findAll(){
+        List<User> userList = userService.findAll();
+
+        return ResponseEntity.ok().body(userList);
     } 
 }
