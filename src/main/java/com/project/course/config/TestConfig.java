@@ -9,10 +9,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.project.course.entities.Category;
 import com.project.course.entities.Order;
+import com.project.course.entities.OrderItem;
 import com.project.course.entities.Product;
 import com.project.course.entities.User;
 import com.project.course.entities.enums.OrderStatus;
 import com.project.course.repositories.CategoryRepository;
+import com.project.course.repositories.OrderItemRepository;
 import com.project.course.repositories.OrderRepository;
 import com.project.course.repositories.ProductRepository;
 import com.project.course.repositories.UserRepository;
@@ -24,12 +26,20 @@ public class TestConfig implements CommandLineRunner{
     private final OrderRepository orderRepository;
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final OrderItemRepository orderItemRepository;
 
-    public TestConfig(UserRepository userRepository, OrderRepository orderRepository, CategoryRepository categoryRepository, ProductRepository productRepository){
+    public TestConfig(
+        UserRepository userRepository, 
+        OrderRepository orderRepository, 
+        CategoryRepository categoryRepository, 
+        ProductRepository productRepository, 
+        OrderItemRepository orderItemRepository
+    ){
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
+        this.orderItemRepository = orderItemRepository;
     }
 
     @Override
@@ -85,5 +95,14 @@ public class TestConfig implements CommandLineRunner{
         prod6.getCategories().add(cat4);
         
         productRepository.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6));
+
+        OrderItem oI1 = new OrderItem(ord1, prod1, 1, prod1.getPrice()); 
+        OrderItem oI2 = new OrderItem(ord2, prod2, 1, prod2.getPrice());
+        OrderItem oI3 = new OrderItem(ord2, prod3, 1, prod3.getPrice());
+        OrderItem oI4 = new OrderItem(ord3, prod6, 1, prod6.getPrice());
+        OrderItem oI5 = new OrderItem(ord4, prod5, 1, prod5.getPrice());
+        OrderItem oI6 = new OrderItem(ord5, prod4, 1, prod4.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oI1, oI2, oI3, oI4, oI5, oI6));
     }
 }
