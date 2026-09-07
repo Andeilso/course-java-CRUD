@@ -22,9 +22,9 @@ public class OrderResource {
 
     @GetMapping
     public ResponseEntity<List<Order>> findAll(){
-        List<Order> orderList = orderService.findAll();
+        List<Order> orders = orderService.findAll();
 
-        return ResponseEntity.ok().body(orderList);
+        return ResponseEntity.ok().body(orders);
     }
 
     @GetMapping (value="/{id}")

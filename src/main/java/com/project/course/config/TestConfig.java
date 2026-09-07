@@ -9,10 +9,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.project.course.entities.Category;
 import com.project.course.entities.Order;
+import com.project.course.entities.Product;
 import com.project.course.entities.User;
 import com.project.course.entities.enums.OrderStatus;
 import com.project.course.repositories.CategoryRepository;
 import com.project.course.repositories.OrderRepository;
+import com.project.course.repositories.ProductRepository;
 import com.project.course.repositories.UserRepository;
 
 @Configuration
@@ -21,11 +23,13 @@ public class TestConfig implements CommandLineRunner{
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
-    public TestConfig(UserRepository userRepository, OrderRepository orderRepository, CategoryRepository categoryRepository){
+    public TestConfig(UserRepository userRepository, OrderRepository orderRepository, CategoryRepository categoryRepository, ProductRepository productRepository){
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -49,8 +53,16 @@ public class TestConfig implements CommandLineRunner{
         Category cat5 = new Category(null, "NOTEBOOK");
         Category cat6 = new Category(null, "MONITOR");
 
+        Product prod1 = new Product(null, "Monitor LCD 19 pol. FullHD", "Monitor de tela com 19 polegas Full HD, com cores vivas.", 2500.00, "");
+        Product prod2 = new Product(null, "Solex 3Crown", "Relôgio Solex 3Crown, a beleza no seu pulso.", 5000.00, "");
+        Product prod3 = new Product(null, "Chassio 5Meters", "Relôgio Chassio versão 5Meters. Relôgio que junta a elegancia de um relôgio e a tecnologia de um celular.", 2000.00, "");
+        Product prod4 = new Product(null, "Notebook Facer 5 Turbo", "Notebook com 30 polegadas, placa de video CTX 12600, Processador ih98 da 109ª geração, com coller para suportar altas temperaturas de 300º.", 1500.00, "");
+        Product prod5 = new Product(null, "Tv Ruansung 72 pol. FullHD", "Tv com cores vivas, se sinta em uma sala de cinema com a qualidade FullHD", 7000.00, "");
+        Product prod6 = new Product(null, "Pc Gamer Super Power Mega Advanced com led", "Pc gamer com placa de video CTX 9I, processador fentium 1 da 1ª geração, com water collers com Led para resfriamento, placa Mãe SL versão 1, já disse que tem led? Aqui só temos produto de qualidade!", 15000.00, "");
+
         userRepository.saveAll(Arrays.asList(use1, use2, use3, use4, use5));
         orderRepository.saveAll(Arrays.asList(ord1, ord2, ord3, ord4, ord5));
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6));
+        productRepository.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6));
     }
 }

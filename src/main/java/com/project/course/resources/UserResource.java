@@ -22,9 +22,9 @@ public class UserResource {
 
     @GetMapping
     public ResponseEntity<List<User>> findAll(){
-        List<User> userList = userService.findAll();
+        List<User> users = userService.findAll();
 
-        return ResponseEntity.ok().body(userList);
+        return ResponseEntity.ok().body(users);
     }
 
     @GetMapping (value="/{id}")

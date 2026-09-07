@@ -1,9 +1,9 @@
 package com.project.course.services;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class CategoryService {
     public Set<Category> findAll(){
         List<Category> categoryList = categoryRepository.findAll();
 
-        return new TreeSet<>(categoryList);
+        return new LinkedHashSet<>(categoryList);
     }
 
     public Category findById(Long id){

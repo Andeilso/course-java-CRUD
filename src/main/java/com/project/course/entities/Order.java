@@ -33,7 +33,7 @@ public class Order implements Serializable{
     
     public Order(){}
 
-    public Order(Long id, Instant moment, OrderStatus orderStatus,User client){
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client){
         super();
         this.id = id;
         this.moment = moment;
