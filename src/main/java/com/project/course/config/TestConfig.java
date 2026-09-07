@@ -40,11 +40,15 @@ public class TestConfig implements CommandLineRunner{
         User use4 = new User(null, "Fabiana Santos", "fabiana@email.com", "6666-6666", "er5tre65");
         User use5 = new User(null, "Ana Carolina", "ana@email.com", "5555-5555", "v1x541vc");
 
+        userRepository.saveAll(Arrays.asList(use1, use2, use3, use4, use5));
+
         Order ord1 = new Order(null, Instant.parse("2000-05-20T09:15:23Z"), OrderStatus.PAID, use1);
         Order ord2 = new Order(null, Instant.parse("2005-05-26T12:27:51Z"), OrderStatus.SHIPPED, use2);
         Order ord3 = new Order(null, Instant.parse("2002-09-30T22:48:41Z"), OrderStatus.CANCELED, use1);
         Order ord4 = new Order(null, Instant.parse("2007-01-21T13:53:59Z"), OrderStatus.DELIVERED, use4);
         Order ord5 = new Order(null, Instant.parse("2014-12-25T17:02:27Z"), OrderStatus.WAITING_PAYMENT, use3);
+
+        orderRepository.saveAll(Arrays.asList(ord1, ord2, ord3, ord4, ord5));
 
         Category cat1 = new Category(null, "ELETRONICO");
         Category cat2 = new Category(null, "RELOGIO");
@@ -53,6 +57,8 @@ public class TestConfig implements CommandLineRunner{
         Category cat5 = new Category(null, "NOTEBOOK");
         Category cat6 = new Category(null, "MONITOR");
 
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6));
+
         Product prod1 = new Product(null, "Monitor LCD 19 pol. FullHD", "Monitor de tela com 19 polegas Full HD, com cores vivas.", 2500.00, "");
         Product prod2 = new Product(null, "Solex 3Crown", "Relôgio Solex 3Crown, a beleza no seu pulso.", 5000.00, "");
         Product prod3 = new Product(null, "Chassio 5Meters", "Relôgio Chassio versão 5Meters. Relôgio que junta a elegancia de um relôgio e a tecnologia de um celular.", 2000.00, "");
@@ -60,9 +66,24 @@ public class TestConfig implements CommandLineRunner{
         Product prod5 = new Product(null, "Tv Ruansung 72 pol. FullHD", "Tv com cores vivas, se sinta em uma sala de cinema com a qualidade FullHD", 7000.00, "");
         Product prod6 = new Product(null, "Pc Gamer Super Power Mega Advanced com led", "Pc gamer com placa de video CTX 9I, processador fentium 1 da 1ª geração, com water collers com Led para resfriamento, placa Mãe SL versão 1, já disse que tem led? Aqui só temos produto de qualidade!", 15000.00, "");
 
-        userRepository.saveAll(Arrays.asList(use1, use2, use3, use4, use5));
-        orderRepository.saveAll(Arrays.asList(ord1, ord2, ord3, ord4, ord5));
-        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6));
+        prod1.getCategories().add(cat1);
+        prod1.getCategories().add(cat6);
+
+        prod2.getCategories().add(cat2);
+        prod2.getCategories().add(cat3);
+        
+        prod3.getCategories().add(cat1);
+        prod3.getCategories().add(cat2);
+        prod3.getCategories().add(cat3);
+        
+        prod4.getCategories().add(cat1);
+        prod4.getCategories().add(cat5);
+        
+        prod5.getCategories().add(cat1);
+        
+        prod6.getCategories().add(cat1);
+        prod6.getCategories().add(cat4);
+        
         productRepository.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6));
     }
 }
