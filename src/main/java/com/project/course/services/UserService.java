@@ -35,4 +35,22 @@ public class UserService {
     public void delete(Long id){
         userRepository.deleteById(id);
     }
+
+    public User update(Long id, User updateDataUser){
+        if(updateDataUser.getName() == null
+        || updateDataUser.getEmail() == null
+        || updateDataUser.getPhone() == null){
+            throw new IllegalArgumentException("All fields are required.");
+        }
+
+        User userFromDataBase = userRepository.getReferenceById(id);
+
+        userFromDataBase.setName(updateDataUser.getName());
+        userFromDataBase.setEmail(updateDataUser.getEmail());
+        userFromDataBase.setPhone(updateDataUser.getPhone());
+        
+        userRepository.save(userFromDataBase);
+        
+        return userFromDataBase;
+    }
 }
