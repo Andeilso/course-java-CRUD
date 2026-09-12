@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,12 +26,16 @@ public class User implements Serializable{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @Column (nullable = false)
     private String name;
 
-    @Column (unique = true)
+    @Column (unique = true, nullable = false)
     private String email;
     
     private String phone;
+
+    @JsonProperty (access = JsonProperty.Access.WRITE_ONLY)
+    @Column (nullable = false)
     private String password;
 
     @JsonIgnore
@@ -72,7 +77,6 @@ public class User implements Serializable{
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    @JsonIgnore
     public String getPassword() {
         return password;
     }

@@ -27,12 +27,14 @@ public class UserService {
     }
 
     public User findById(Long id){
-        Optional<User> user = userRepository.findById(id);
-
-        return user.orElseThrow(() -> new ResourceNotFoundException(id));
+          return userRepository
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User user){
+        validateInsert(user);
+
         return userRepository.save(user);
     }
 
@@ -49,26 +51,38 @@ public class UserService {
     }
 
     public User update(Long id, User userUpdate){
-        if(userUpdate.getName() == null
-        || userUpdate.getEmail() == null
-        || userUpdate.getPhone() == null){
-            throw new InvalidRequestException("All fields are required for update.");
-        }
+        validateUpdate(userUpdate);
 
-        User userFromDataBase = userRepository.findById(id)
+        User userFromDataBase = userRepository
+            .findById(id)
             .orElseThrow(() -> new ResourceNotFoundException(id));
         
-        userFromDataBase = updateUser(userFromDataBase, userUpdate);
+        updateUser(userFromDataBase, userUpdate);
         userRepository.save(userFromDataBase);
             
         return userFromDataBase;
     }
         
-    public User updateUser(User userEntity, User userUpdate){
+    public void updateUser(User userEntity, User userUpdate){
         userEntity.setName(userUpdate.getName());
         userEntity.setEmail(userUpdate.getEmail());
         userEntity.setPhone(userUpdate.getPhone());
+    }
 
-        return userEntity;
+    public void validateInsert(User userObj){
+        if(userObj.getName() == null
+        || userObj.getEmail() == null
+        || userObj.getPhone() == null
+        || userObj.getPassword() == null){
+            throw new InvalidRequestException("Name, email, phone and password fields are required to create a new user.");
+        }
+    }
+
+    public void validateUpdate(User userObj){
+        if(userObj.getName() == null
+        || userObj.getEmail() == null
+        || userObj.getPhone() == null){
+            throw new InvalidRequestException("Name, email and phone fields are required for update.");
+        }
     }
 }
